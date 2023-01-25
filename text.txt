@@ -1,0 +1,39 @@
+# lambda
+    The lambda calculus is a simple mathematical model for computation, developed by Alonzo Church in the 1930's. Every statement, called 'term', is built from three main structures:
+  
+  Variables: "x" - May represent arbitrary data outside of LC.
+  Applications: "MN" - Applies one term 'N' as a parameter to another, 'M', provided 'M' is an abstraction.
+  Abstractions: "λx.M" - Defines a sort of function, where term 'M' is its body and 'x' is its only input parameter. 
+This interpreter also adds a fourth structure, Named terms, to increase efficiency. Until they need to be evaluated they are treated as variables.
+    
+    Beta-reduction defines how a term is actually evaluated. Whenever a valid application is found, '(λx.M)N', it is replaced by a modified version of 'M', where all instances of 'x' have been replaced by 'N', written as 'M[x:=N]'. e.g. '(λx.x world)' hello evaluates to '(x world)[x:= hello]', which is equal to 'hello world'. Typically only one beta reduction is preformed per step.
+    
+    Alpha-conversion is an often necesary function which renames an abstraction's parameter to avoid naming colision. e.g. (λx.λy.x y)'N' would create a naming conflict if 'N' is, or contains 'y' (λy.y y =/= λy.z y). to prevent this, all potential 'y' in 'N' are renamed to "y'".
+
+    Examples:
+logical True: λx.λy.x - Takes first of two terms, discards the other.
+logical False: λx.λy.y - Opposite of True.
+logical Not: λx.(x F) T - Outputs the opposite of input.
+logical AND: λx.λy.(x y) F - If x is False, outputs False, otherwise outputs y.
+logical OR: λx.λy.(x T) y - If x if True, outputs True, otherwise outputs y.
+
+    Additional notes:
+Terms are evaluated from the left, thus 'ABC' == '(AB)C'.
+'λx.λy.M' is commonly shortened to 'λx y.M'.
+
+# default
+    usage: Type any lambda term to reduce to its beta-normal form. You can use '@' and '\' instead of 'λ'. Includes standard library of combinators, binary logic, math.
+
+    commands:
+"help": Displays this menu
+"help lambda": Displays basic info on The Lambda Calculus
+"exit": exits the interpreter
+"clear": clears screen
+"define {name}": defines the last ran lambda term as the entered name
+"import {library}": imports a specified library. using "all" imports all libraries
+
+# start
+Welcome to the basic command-line lambda reducer.
+Type "help" if you need any.
+
+# 

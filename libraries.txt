@@ -1,0 +1,54 @@
+# combinators combinator comb all
+I  @x.x
+K  @x y.x
+S  @x y z.x z(y z)
+A  @x y.y (x x y)
+Y A A
+
+# logic all
+T  @x y.x
+F  @x y.y
+|  @a b. a T b
+&  @a b. a b F
+~  @a.a F T
+^  @a b.&(| a b)(~(& a b))
+
+# math1 math all
+++  @n f x.f(n f x)
+--  @n f x.n ( @g h.h(g f)) ( @_.x) (@y.y)
++  @n m.n ++ m
+-  @n m.m -- n
+*  @n m f.n(m f)
+**  @n m f.m n f
+
+# comparisons comparison comp all
+=0  @n.n ( @_.F) T
+>=  @n m.=0(- m n)
+<=  @n m.=0(- n m)
+>  @n m.=0(- (++ m) n)
+<  @n m.=0(- (++ n) m)
+==  @n m.&(>= n m)(<= n m)
+
+# numbers number nums num all
+0  @f x.x
+1  @f x.f x
+2  @f x.f(f x)
+3  @f x.f(f(f x))
+4  @f x.f(f(f(f x)))
+5  @f x.f(f(f(f(f x))))
+6  @f x.f(f(f(f(f(f x)))))
+7  @f x.f(f(f(f(f(f(f x))))))
+8  @f x.f(f(f(f(f(f(f(f x)))))))
+9  @f x.f(f(f(f(f(f(f(f(f x))))))))
+
+# math2 math all
+Fac  @p q.q(++(p T))(*(p T)(p F))
+!  @n.n Fac ( @p.p 1 1) F
+
+div  @g n m.< n m 0 (++ (g (- n m) m ))
+/ Y div
+
+# matrices matrix 2x2matrices 2x2matrix all
+M2x2  @a b c d x y. x (y a b) (y c d)
+MxA  @m a x y. x (y (* a (m T T)) (* a (m T F))) (y (* a (m F T)) (* a (m F F))))
+MxM  @m n x y. x (y (+ (* (m T T) (n T T)) (* (m T F) (n F T))) (+ (* (m T T) (n T F)) (* (m T F) (n F F))) ) (y (+ (* (m F T) (n T T)) (* (m F F) (n F T))) (+ (* (m F T) (n T F)) (* (m F F) (n F F))))
